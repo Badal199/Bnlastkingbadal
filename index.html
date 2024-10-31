@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BN LAST KING</title>
+</head>
+<body>
+    <div style="text-align: center;">
+        <!-- Updated logo (100x100) -->
+        <img src="path_to_your_image/bn_resized_100x100.png" alt="BN LAST KING Logo" width="100" height="100">
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BN LAST KING Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        .table-box {
+            width: 400px;
+            margin: 20px auto;
+            padding: 10px;
+            border: 5px solid pink;
+            background-color: #fff;
+            text-align: center;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 5px rgb(255, 0, 255);
+            animation: blingBling 1s infinite;
+        }
+        @keyframes blingBling {
+            0% { box-shadow: 0 0 10px 5px rgb(255, 0, 255); }
+            50% { box-shadow: 0 0 15px 10px rgb(0, 255, 255); }
+            100% { box-shadow: 0 0 10px 5px rgb(255, 0, 255); }
+        }
+        .result {
+            font-size: 30px;
+            color: #ff1493;
+        }
+        .timer {
+            font-size: 25px;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+        .history {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .history-table th, .history-table td {
+            border: 1px solid pink;
+            padding: 5px;
+            text-align: center;
+        }
+        .buttons {
+            margin: 10px 0;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .win-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .lose-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        .join-btn {
+            background-color: #0088cc;
+            color: white;
+            text-align: center;
+        }
+        .button:disabled {
+            background-color: grey;
+            cursor: not-allowed;
+        }
+        .win-lose-stats {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="table-box">
+        <div class="timer" id="timer30s">00 : 30</div>
+        <div class="result" id="result">Result will show here</div>
+    </div>
+
+    <div class="history">
+        <h3>Result History</h3>
+        <table class="history-table" id="historyTable">
+            <thead>
+                <tr>
+                    <th>Period Number</th>
+                    <th>Result</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- History will be added here dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="buttons">
+        <button class="button win-btn" id="winButton" disabled>WIN</button>
+        <button class="button lose-btn" id="loseButton" disabled>LOST</button>
+    </div>
+
+    <div class="win-lose-stats" id="winLoseStats">
+        Wins: 0 | Losses: 0
+    </div>
+
+    <!-- New Join Channel Button -->
+    <div class="join-channel">
+        <a href="https://t.me/BNLASTKINGHACK" target="_blank">
+            <button class="button join-btn">BN LAST KING HACK JOIN CHANNEL</button>
+        </a>
+    </div>
+
+    <script>
+        const results = ['SMALL', 'SMALL', 'BIG', 'SMALL', 'SMALL', 'BIG', 'SMALL', 'BIG', 'BIG', 'SMALL', 'BIG', 'SMALL'];
+        let periodCounter = 0;
+        let winCount = 0;
+        let loseCount = 0;
+        let isResultClicked = false;  // To ensure one click per period
+        let timerElement = document.getElementById('timer30s');
+        let resultElement = document.getElementById('result');
+        let historyTable = document.getElementById('historyTable').getElementsByTagName('tbody')[0];
+        let winLoseStats = document.getElementById('winLoseStats');
+        let winButton = document.getElementById('winButton');
+        let loseButton = document.getElementById('loseButton');
+
+        // Timer function for 30 seconds
+        setInterval(() => {
+            let now = new Date();
+            let seconds = now.getUTCSeconds();
+            let remainingSeconds = 30 - (seconds % 30);
+            timerElement.textContent = `  ${("0" + remainingSeconds).slice(-2)} : 30`;
+
+            // Change the result and update the period every 30 seconds
+            if (remainingSeconds === 30) {
+                let periodNumber = periodCounter + 1;
+                let randomResult = results[periodCounter % results.length];
+
+                // Update result display and period number
+                resultElement.textContent = randomResult;
+
+                // Add result to history
+                let newRow = historyTable.insertRow();
+                let periodCell = newRow.insertCell(0);
+                let resultCell = newRow.insertCell(1);
+                let statusCell = newRow.insertCell(2);
+                periodCell.textContent = "Period " + periodNumber;
+                resultCell.textContent = randomResult;
+                statusCell.textContent = "Pending";
+
+                // Update counter for the next result
+                periodCounter++;
+
+                // Enable buttons and reset click status
+                winButton.disabled = false;
+                loseButton.disabled = false;
+                isResultClicked = false;
+            }
+        }, 1000);
+
+        // Win and Lost button click handling
+        winButton.addEventListener('click', () => {
+            if (!isResultClicked) {
+                winCount++;
+                updateWinLoseStats();
+                updateHistoryStatus("WIN");
+                disableButtons();
+                isResultClicked = true;
+            }
+        });
+
+        loseButton.addEventListener('click', () => {
+            if (!isResultClicked) {
+                loseCount++;
+                updateWinLoseStats();
+                updateHistoryStatus("LOST");
+                disableButtons();
+                isResultClicked = true;
+            }
+        });
+
+        // Function to update win and lose stats
+        function updateWinLoseStats() {
+            winLoseStats.textContent = `Wins: ${winCount} | Losses: ${loseCount}`;
+        }
+
+        // Function to disable buttons after one click
+        function disableButtons() {
+            winButton.disabled = true;
+            loseButton.disabled = true;
+        }
+
+        // Function to update the latest row in the history with the WIN/LOST status
+        function updateHistoryStatus(status) {
+            let latestRow = historyTable.rows[historyTable.rows.length - 1];
+            latestRow.cells[2].textContent = status;
+        }
+    </script>
+</body>
+</html>
